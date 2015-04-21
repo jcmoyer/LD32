@@ -3,10 +3,10 @@ local module = require('hug.module')
 local music = module.new()
 
 local tracks = {
-  level01 = {
-    start = love.audio.newSource('assets/level01-intro.ogg'),
-    loop = love.audio.newSource('assets/level01-loop.ogg')
-  },
+  --level01 = {
+  --  start = love.audio.newSource('assets/level01-intro.ogg'),
+  --  loop = love.audio.newSource('assets/level01-loop.ogg')
+  --},
   boss = {
     start = love.audio.newSource('assets/boss-intro.ogg'),
     loop = love.audio.newSource('assets/boss-loop.ogg')

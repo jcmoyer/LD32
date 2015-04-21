@@ -269,7 +269,7 @@ function stage:draw(a)
   love.graphics.translate(sx, sy)
 
   love.graphics.setColor(20, 12, 28)
-  love.graphics.rectangle('fill', 0, 0, unpack(self.bounds))
+  love.graphics.rectangle('fill', unpack(self.bounds))
   love.graphics.setColor(255, 255, 255)
 
   self.bg:draw()

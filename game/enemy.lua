@@ -38,7 +38,8 @@ function enemy.new(enemyinfo, spawninfo, stage)
     predictvec = vector2.new(),
     sc = nil,
     hp = enemyinfo.hp,
-    flash = 0
+    flash = 0,
+    boss = enemyinfo.boss or false
   }
   instance.sc = esc.new(stage, instance)
   if instance.info.spawn then
@@ -102,7 +103,9 @@ end
 
 function enemy:damage(amount)
   self.hp = self.hp - amount
-  self.flash = 2
+  if not self.boss then
+    self.flash = 2
+  end
   if self.hp <= 0 then
     self.alive = false
   end

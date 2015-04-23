@@ -1,6 +1,7 @@
 image = 'assets/metalboss.png'
 hp = 100
 points = 100000
+boss = true
 
 aset(function()
   animation 'default' {
@@ -34,7 +35,6 @@ local bladeside = 'left'
 local gravitybullets = {}
 
 function spawn(context, userdata)
-  context:setboss()
   context:setv(0, 10)
 end
 

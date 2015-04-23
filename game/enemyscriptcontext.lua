@@ -67,10 +67,6 @@ function esc:onscreen()
   return self.stage.bounds:contains(unpack(self.enemy.p))
 end
 
-function esc:setboss()
-  self.stage:setboss(self.enemy)
-end
-
 function esc:spawnenemy(name, x, y, userdata)
   self.stage:spawnenemy({frame=0, name=name, x=x, y=y, spawned=true, userdata=userdata})
 end

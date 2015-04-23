@@ -165,6 +165,9 @@ function stage:update(dt)
     if (self.frame >= info.frame and not info.spawned) then
       local ei = eis.runfile(eis.filename(info.name))
       local en = enemy.new(ei, info, self)
+      if en.boss then
+        self:setboss(en)
+      end
       table.insert(self.enemies, en)
       info.spawned = true
     end

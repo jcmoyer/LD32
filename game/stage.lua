@@ -283,9 +283,13 @@ function stage:draw(a)
   end
   self.player:draw(a)
   love.graphics.setColor(255, 255, 255)
+
+  enemy.setshader(true)
   for i = 1,#self.enemies do
     self.enemies[i]:draw(a)
   end
+  enemy.setshader()
+
   for i = 1,#self.effects do
     self.effects[i]:draw(a)
   end

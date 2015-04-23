@@ -5,6 +5,26 @@ local animator = require('hug.anim.animator')
 
 local enemy = module.new()
 
+local flash = love.graphics.newShader [[
+extern float flash;
+
+vec4 effect(vec4 vcolor, Image tex, vec2 texcoord, vec2 pixcoord) {
+    vec4 outputcolor = Texel(tex, texcoord) * vcolor;
+    outputcolor.r = outputcolor.r + flash * (255 * flash - outputcolor.r);
+    outputcolor.g = outputcolor.g + flash * (255 * flash - outputcolor.g);
+    outputcolor.b = outputcolor.b + flash * (255 * flash - outputcolor.b);
+    return outputcolor;
+}
+]]
+
+function enemy.setshader(state)
+  if state then
+    love.graphics.setShader(flash)
+  else
+    love.graphics.setShader()
+  end
+end
+
 function enemy.new(enemyinfo, spawninfo, stage)
   local instance = {
     image = enemyinfo.image,
@@ -17,7 +37,8 @@ function enemy.new(enemyinfo, spawninfo, stage)
     anim = animator.new(enemyinfo.aset),
     predictvec = vector2.new(),
     sc = nil,
-    hp = enemyinfo.hp
+    hp = enemyinfo.hp,
+    flash = 0
   }
   instance.sc = esc.new(stage, instance)
   if instance.info.spawn then
@@ -40,6 +61,10 @@ function enemy:update(dt)
 
   self.p:add(self.v)
   self.anim:update(dt)
+  self.flash = self.flash - 1
+  if self.flash < 0 then
+    self.flash = 0
+  end
 end
 
 function enemy:predict(a)
@@ -58,6 +83,12 @@ function enemy:draw(a)
   --love.graphics.rectangle('fill', rx, ry, 100, 100)
   local f = self.anim:frame()
 
+  if self.flash > 0 then
+    flash:send('flash', 1)
+  else
+    flash:send('flash', 0)
+  end
+
   love.graphics.draw(self.image, f.quad, math.floor(rx - f:width() / 2), math.floor(ry - f:height() / 2))
 end
 
@@ -71,6 +102,7 @@ end
 
 function enemy:damage(amount)
   self.hp = self.hp - amount
+  self.flash = 2
   if self.hp <= 0 then
     self.alive = false
   end

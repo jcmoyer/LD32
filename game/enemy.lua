@@ -38,6 +38,7 @@ function enemy.new(enemyinfo, spawninfo, stage)
     predictvec = vector2.new(),
     sc = nil,
     hp = enemyinfo.hp,
+    maxhp = enemyinfo.hp,
     flash = 0,
     boss = enemyinfo.boss or false
   }

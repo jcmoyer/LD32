@@ -53,6 +53,7 @@ end
 
 function esc:sethp(n)
   self.enemy.hp = n
+  self.enemy.maxhp = n
 end
 
 function esc:setmusic(name)

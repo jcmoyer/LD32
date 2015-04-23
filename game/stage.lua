@@ -300,6 +300,17 @@ function stage:draw(a)
   for i = 1,#self.bullets do
     self.bullets[i]:draw(a)
   end
+
+  if self.boss then
+    local centerx = self.bounds:center()
+    local barw = self.bounds:width() / 1.5
+    local barh = 4
+    local barx = centerx - barw / 2
+    local bary = self.bounds:y() + 4
+    love.graphics.setColor(222, 238, 214)
+    love.graphics.rectangle('fill', barx, bary, barw - ((1 - self.boss.hp / self.boss.maxhp) * barw), barh)
+    love.graphics.setColor(255, 255, 255)
+  end
   --love.graphics.rectangle('line', unpack(self.bounds))
 
   love.graphics.setColor(255, 255, 255, self.killfade)

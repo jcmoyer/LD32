@@ -10,6 +10,7 @@ local animutil = require('game.animutil')
 local music = require('game.music')
 local sound = require('game.sound')
 local background = require('game.background')
+local flashshader = require('game.flashshader')
 
 local adsl = require('hug.anim.dsl')
 local effectset = adsl.run(function()
@@ -282,17 +283,19 @@ function stage:draw(a)
     self.playerbullets[i]:draw(a)
   end
 
-  if (self.invinc > 0 and math.floor(self.invinc / 8) % 2 == 0) then
-    love.graphics.setColor(218, 212, 94)
+  flashshader.enable(true)
+  if (self.invinc > 0 and math.floor(self.invinc / 2) % 2 == 0) then
+    flashshader.setflash(true)
+  else
+    flashshader.setflash(false)
   end
   self.player:draw(a)
-  love.graphics.setColor(255, 255, 255)
 
-  enemy.setshader(true)
   for i = 1,#self.enemies do
+    flashshader.setflash(self.enemies[i]:isflashing())
     self.enemies[i]:draw(a)
   end
-  enemy.setshader()
+  flashshader.enable(false)
 
   for i = 1,#self.effects do
     self.effects[i]:draw(a)

@@ -5,26 +5,6 @@ local animator = require('hug.anim.animator')
 
 local enemy = module.new()
 
-local flash = love.graphics.newShader [[
-extern float flash;
-
-vec4 effect(vec4 vcolor, Image tex, vec2 texcoord, vec2 pixcoord) {
-    vec4 outputcolor = Texel(tex, texcoord) * vcolor;
-    outputcolor.r = outputcolor.r + flash * (222 * flash - outputcolor.r);
-    outputcolor.g = outputcolor.g + flash * (238 * flash - outputcolor.g);
-    outputcolor.b = outputcolor.b + flash * (214 * flash - outputcolor.b);
-    return outputcolor;
-}
-]]
-
-function enemy.setshader(state)
-  if state then
-    love.graphics.setShader(flash)
-  else
-    love.graphics.setShader()
-  end
-end
-
 function enemy.new(enemyinfo, spawninfo, stage)
   local instance = {
     image = enemyinfo.image,
@@ -85,12 +65,6 @@ function enemy:draw(a)
   --love.graphics.rectangle('fill', rx, ry, 100, 100)
   local f = self.anim:frame()
 
-  if self.flash > 0 then
-    flash:send('flash', 1)
-  else
-    flash:send('flash', 0)
-  end
-
   love.graphics.draw(self.image, f.quad, math.floor(rx - f:width() / 2), math.floor(ry - f:height() / 2))
 end
 
@@ -118,6 +92,10 @@ end
 
 function enemy:pointval()
   return self.info.points or 500
+end
+
+function enemy:isflashing()
+  return self.flash > 0
 end
 
 return enemy

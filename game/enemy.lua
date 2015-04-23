@@ -10,9 +10,9 @@ extern float flash;
 
 vec4 effect(vec4 vcolor, Image tex, vec2 texcoord, vec2 pixcoord) {
     vec4 outputcolor = Texel(tex, texcoord) * vcolor;
-    outputcolor.r = outputcolor.r + flash * (255 * flash - outputcolor.r);
-    outputcolor.g = outputcolor.g + flash * (255 * flash - outputcolor.g);
-    outputcolor.b = outputcolor.b + flash * (255 * flash - outputcolor.b);
+    outputcolor.r = outputcolor.r + flash * (222 * flash - outputcolor.r);
+    outputcolor.g = outputcolor.g + flash * (238 * flash - outputcolor.g);
+    outputcolor.b = outputcolor.b + flash * (214 * flash - outputcolor.b);
     return outputcolor;
 }
 ]]

@@ -30,7 +30,7 @@ end
 function effect:draw()
   local rx, ry = unpack(self.p)
   local f = self.anim:frame()
-  love.graphics.draw(self.image, f.quad, rx - f:width() / 2, ry - f:height() / 2)
+  love.graphics.draw(self.image, f.quad, math.floor(rx - f:width() / 2), math.floor(ry - f:height() / 2))
 end
 
 return effect

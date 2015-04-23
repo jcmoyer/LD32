@@ -211,6 +211,7 @@ function stage:update(dt)
         local e = self.enemies[j]
         local ex, ey = unpack(e.p)
         if collision.cc(ex, ey, e:radius(), bx, by, b:radius()) then
+          sound.play('hit')
           b:kill()
           e:damage(1)
           if not e.alive then

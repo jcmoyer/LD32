@@ -40,11 +40,13 @@ local aset = adsl.run(function()
   animation 'flame' {
     frame {
       source = rectangle(0, 64, 16, 16),
-      attachment('radius', 8)
+      attachment('radius', 8),
+      duration = '50ms'
     },
     frame {
       source = rectangle(16, 64, 16, 16),
-      attachment('radius', 8)
+      attachment('radius', 8),
+      duration = '50ms'
     }
   }
 

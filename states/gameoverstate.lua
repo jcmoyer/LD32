@@ -30,13 +30,13 @@ function gameoverstate:keypressed(key)
 end
 
 function gameoverstate:draw(a)
+  local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
+
   love.graphics.setColor(20, 12, 28)
   love.graphics.rectangle('fill', 0, 0, sw, sh)
   love.graphics.setColor(255, 255, 255)
 
   love.graphics.setFont(font)
-
-  local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
 
   do
     local t = 'Your score was ' .. self.score .. '.'

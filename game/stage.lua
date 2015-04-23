@@ -55,6 +55,21 @@ local effectset = adsl.run(function()
       source = rectangle.new(96, 192-32, 32, 32), duration = '50ms'
     }
   }
+
+  animation 'hit' {
+    frame {
+      source = rectangle.new(0, 32, 32, 32), duration = '50ms'
+    },
+    frame {
+      source = rectangle.new(32, 32, 32, 32), duration = '50ms'
+    },
+    frame {
+      source = rectangle.new(64, 32, 32, 32), duration = '50ms'
+    },
+    frame {
+      source = rectangle.new(96, 32, 32, 32), duration = '50ms'
+    },
+  }
 end)
 local effects = love.graphics.newImage('assets/effects.png')
 animutil.genfquads(effectset, effects)
@@ -216,6 +231,8 @@ function stage:update(dt)
         local ex, ey = unpack(e.p)
         if collision.cc(ex, ey, e:radius(), bx, by, b:radius()) then
           sound.play('hit')
+          table.insert(self.effects,
+            effect.new(effects, effectset, 'hit', bx, by))
           b:kill()
           e:damage(1)
           if not e.alive then

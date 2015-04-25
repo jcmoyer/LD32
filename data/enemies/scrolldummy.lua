@@ -1,4 +1,4 @@
 function spawn(context, userdata)
-  context:setyscrollv(userdata.v)
+  context:setscrollv(userdata.xv or nil, userdata.yv or nil)
   context:kill()
 end

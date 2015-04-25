@@ -6,6 +6,10 @@ local animator = require('hug.anim.animator')
 local enemy = module.new()
 
 function enemy.new(enemyinfo, spawninfo, stage)
+  local anim
+  if enemyinfo.aset then
+    anim = animator.new(enemyinfo.aset)
+  end
   local instance = {
     image = enemyinfo.image,
     info = enemyinfo,
@@ -14,7 +18,7 @@ function enemy.new(enemyinfo, spawninfo, stage)
     v = vector2.new(),
     accelangle = 0,
     accelmag = 0,
-    anim = animator.new(enemyinfo.aset),
+    anim = anim,
     predictvec = vector2.new(),
     sc = nil,
     hp = enemyinfo.hp,
@@ -23,10 +27,11 @@ function enemy.new(enemyinfo, spawninfo, stage)
     boss = enemyinfo.boss or false
   }
   instance.sc = esc.new(stage, instance)
+  setmetatable(instance, enemy)
   if instance.info.spawn then
     instance.info.spawn(instance.sc, spawninfo.userdata)
   end
-  return setmetatable(instance, enemy)
+  return instance
 end
 
 function enemy:update(dt)
@@ -42,7 +47,9 @@ function enemy:update(dt)
     math.sin(direction) * self.accelmag)
 
   self.p:add(self.v)
-  self.anim:update(dt)
+  if self.anim then
+    self.anim:update(dt)
+  end
   self.flash = self.flash - 1
   if self.flash < 0 then
     self.flash = 0
@@ -61,11 +68,13 @@ function enemy:predict(a)
 end
 
 function enemy:draw(a)
-  local rx, ry = unpack(self:predict(a))
-  --love.graphics.rectangle('fill', rx, ry, 100, 100)
-  local f = self.anim:frame()
+  if self.anim then
+    local rx, ry = unpack(self:predict(a))
+    --love.graphics.rectangle('fill', rx, ry, 100, 100)
+    local f = self.anim:frame()
 
-  love.graphics.draw(self.image, f.quad, math.floor(rx - f:width() / 2), math.floor(ry - f:height() / 2))
+    love.graphics.draw(self.image, f.quad, math.floor(rx - f:width() / 2), math.floor(ry - f:height() / 2))
+  end
 end
 
 function enemy:kill()
@@ -87,7 +96,11 @@ function enemy:damage(amount)
 end
 
 function enemy:radius()
-  return self.anim:frame():attachment('radius')[1]
+  if self.anim then
+    return self.anim:frame():attachment('radius')[1]
+  else
+    return 0
+  end
 end
 
 function enemy:pointval()

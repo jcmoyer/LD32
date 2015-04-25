@@ -123,7 +123,9 @@ function stage.new(spawninfo, musicname)
     killfade = 0,
     bg = background.new(bounds:width(), bounds:height()),
     gameover = false,
-    win = false
+    win = false,
+    yscroll = 0,
+    xscrollv = 0, yscrollv = 1
   }
   instance.music:restart()
 
@@ -281,7 +283,11 @@ function stage:update(dt)
     end
   end
 
-  self.bg:setscroll(-self.player.p[1], -self.player.p[2] + self.frame)
+  self.yscroll = self.yscroll + self.yscrollv
+  --self.bg:setscroll(-self.player.p[1], -self.player.p[2] + self.yscroll)
+  self.bg.v[1] = self.xscrollv
+  self.bg.v[2] = self.yscrollv
+  self.bg:update()
 end
 
 function stage:draw(a)
@@ -293,7 +299,9 @@ function stage:draw(a)
   love.graphics.rectangle('fill', unpack(self.bounds))
   love.graphics.setColor(255, 255, 255)
 
-  self.bg:draw()
+
+  --self.bg:setscroll(-self.player.p[1], -self.player.p[2] + self.yscroll)
+  self.bg:draw(a, -self.player.p[1], -self.player.p[2])
 
   for i = 1,#self.playerbullets do
     self.playerbullets[i]:draw(a)

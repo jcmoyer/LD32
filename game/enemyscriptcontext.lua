@@ -86,4 +86,17 @@ function esc:setbulletzone(x,y)
   self.stage.bulletzone:inflate(x,y)
 end
 
+function esc:setscrollv(xv, yv)
+  if xv then
+    self.stage.xscrollv = xv
+  end
+  if yv then
+    self.stage.yscrollv = yv
+  end
+end
+
+function esc:kill()
+  self.enemy:kill()
+end
+
 return esc

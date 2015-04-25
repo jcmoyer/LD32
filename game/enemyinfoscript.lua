@@ -34,7 +34,9 @@ function eis.run(f)
   end
   env.aset = aset
   env.hp = env.hp or 1
-  animutil.genfquads(aset, env.image)
+  if aset then
+    animutil.genfquads(aset, env.image)
+  end
 
   return env
 end

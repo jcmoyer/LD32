@@ -99,4 +99,8 @@ function esc:kill()
   self.enemy:kill()
 end
 
+function esc:bombbullets()
+  self.stage:bombbullets()
+end
+
 return esc

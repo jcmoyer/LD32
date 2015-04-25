@@ -151,9 +151,7 @@ function stage:killplayer()
   table.insert(self.effects,
     effect.new(effects, effectset, 'explosion', px, py))
 
-  self.bullets = {}
-  self.killfade = 150
-  sound.play('pop')
+  self:bombbullets()
   self:startlevel()
 
   self.lives = self.lives - 1
@@ -411,6 +409,12 @@ function stage:spawnexplosions(x, y, r, dmin, dmax, nmin, nmax)
     table.insert(self.effects,
       effect.new(effects, effectset, 'explosion', dx, dy, delay, 'pop'))
   end
+end
+
+function stage:bombbullets()
+  self.bullets = {}
+  self.killfade = 150
+  sound.play('pop')
 end
 
 return stage

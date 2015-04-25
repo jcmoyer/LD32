@@ -61,6 +61,7 @@ function update(context)
 
     if context:gethp() < 10 then
       context:sethp(400)
+      context:bombbullets()
       state = 'fight-2'
       counter = -50
       context:setbulletzone(8,8)
@@ -80,6 +81,7 @@ function update(context)
     end
     if context:gethp() < 10 then
       context:sethp(800)
+      context:bombbullets()
       state = 'fight-3'
       counter = -50
       context:resetbulletzone()
@@ -104,6 +106,7 @@ function update(context)
     end
     if context:gethp() < 10 then
       context:sethp(800)
+      context:bombbullets()
       state = 'fight-4'
       counter = -50
       counter2 = 0

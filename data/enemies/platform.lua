@@ -1,5 +1,5 @@
 image = 'assets/platform.png'
-hp = 10
+hp = 30
 
 aset(function()
   animation 'default' {

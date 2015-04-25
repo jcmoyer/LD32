@@ -1,5 +1,5 @@
 image = 'assets/blade.png'
-hp = 2
+hp = 10
 points = 1000
 
 aset(function()

@@ -230,17 +230,16 @@ function stage:update(dt)
         local e = self.enemies[j]
         local ex, ey = unpack(e.p)
         if collision.cc(ex, ey, e:radius(), bx, by, b:radius()) then
-          sound.play('hit')
           table.insert(self.effects,
-            effect.new(effects, effectset, 'hit', bx, by))
+            effect.new(effects, effectset, 'hit', bx, by, 1, 'hit'))
           b:kill()
           e:damage(1)
           if not e.alive then
-            sound.play('pop')
             table.remove(self.enemies, j)
             self.score = self.score + e:pointval()
-            table.insert(self.effects,
-              effect.new(effects, effectset, 'explosion', ex, ey))
+            self:spawnexplosions(ex, ey, 50, 0, 20, 5, 15)
+            --table.insert(self.effects,
+            --  effect.new(effects, effectset, 'explosion', ex, ey))
           end
           break
         end
@@ -360,10 +359,15 @@ end
 function stage:spawnplayerbullet()
   if self.player:canfire() then
     local px, py = unpack(self.player.p)
-    local b = bullet.new('carrot', px + self.player:bulletxoffs(), py, 0, -5)
-    b.accelmag = 0.5
-    b.accelangle = (math.random() * 0.1) - (math.random() * 0.1)
-    table.insert(self.playerbullets, b)
+    local pvx, pvy = unpack(self.player.v)
+    local b1 = bullet.new('carrot', px + self.player:bulletxoffs(), py, 0, math.min(pvy-7,-7))
+    local b2 = bullet.new('carrot', px - self.player:bulletxoffs(), py, 0, math.min(pvy-7,-7))
+    b1.accelmag = 0.7
+    b1.accelangle = (math.random() * 0.05) - (math.random() * 0.05)
+    b2.accelmag = 0.7
+    b2.accelangle = (math.random() * 0.05) - (math.random() * 0.05)
+    table.insert(self.playerbullets, b1)
+    table.insert(self.playerbullets, b2)
     self.player:setfired()
     return true
   end
@@ -390,5 +394,15 @@ function stage:spawnenemy(spawninfo)
   table.insert(self.enemies, en)
 end
 
+function stage:spawnexplosions(x, y, r, dmin, dmax, nmin, nmax)
+  local num = nmin + math.random() * (nmax - nmin)
+  for i = 1, num do
+    local dx = x + math.random() * r - math.random() * r
+    local dy = y + math.random() * r - math.random() * r
+    local delay = dmin + math.random() * (dmax - dmin)
+    table.insert(self.effects,
+      effect.new(effects, effectset, 'explosion', dx, dy, delay, 'pop'))
+  end
+end
 
 return stage

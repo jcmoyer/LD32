@@ -1,5 +1,5 @@
 image = 'assets/drone.png'
-hp = 1
+hp = 3
 
 aset(function()
   animation 'default' {

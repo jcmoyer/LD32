@@ -1,5 +1,5 @@
 image = 'assets/metalboss.png'
-hp = 100
+hp = 400
 points = 100000
 boss = true
 
@@ -50,7 +50,7 @@ function update(context)
     counter = counter + 1
     if counter >= 10 then
       for i = 1, 32 do
-        local b = context:spawnbulletangular('bullet-b', 2*math.pi/32 * i + accumulator*math.pi/256, 4)
+        local b = context:spawnbulletangular('bullet-b-red', 2*math.pi/32 * i + accumulator*math.pi/256, 4)
         context:playsound('pop2')
         b.accelmag = 0.1
       end
@@ -60,7 +60,7 @@ function update(context)
     accumulator2 = accumulator2 + 3
 
     if context:gethp() < 10 then
-      context:sethp(100)
+      context:sethp(400)
       state = 'fight-2'
       counter = -50
       context:setbulletzone(8,8)
@@ -71,7 +71,7 @@ function update(context)
     if counter >= 5 then
       local r = context:angletoplayer()
       for i = -7,7 do
-        local b = context:spawnbulletangular('bullet-b', 3*math.pi/2 + i * math.pi / 4 + accumulator*math.pi/256, 5)
+        local b = context:spawnbulletangular('bullet-b-red-huge', 3*math.pi/2 + i * math.pi / 4 + accumulator*math.pi/256, 5)
         b.accelmag = 0.1
         b.accelangle = math.pi / 2
         context:playsound('pop2')
@@ -79,7 +79,7 @@ function update(context)
       counter = 0
     end
     if context:gethp() < 10 then
-      context:sethp(200)
+      context:sethp(800)
       state = 'fight-3'
       counter = -50
       context:resetbulletzone()
@@ -103,7 +103,7 @@ function update(context)
       counter2 = 0
     end
     if context:gethp() < 10 then
-      context:sethp(200)
+      context:sethp(800)
       state = 'fight-4'
       counter = -50
       counter2 = 0

@@ -74,7 +74,7 @@ function player:canfire()
 end
 
 function player:setfired()
-  self.bulletcd = 4
+  self.bulletcd = 2
   if self.bulletside == 'left' then
     self.bulletside = 'right'
   else
@@ -88,11 +88,12 @@ function player:bulletxoffs()
   --  mod = 0.3
   --end
 
-  if self.bulletside == 'left' then
-    return -18 * mod
-  else
-    return 18 * mod
-  end
+  --if self.bulletside == 'left' then
+  --  return -18 * mod
+  --else
+  --  return 18 * mod
+  --end
+  return 18
 end
 
 function player:setfocus(v)

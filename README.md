@@ -1,4 +1,4 @@
-# Linewalker
+# Rocket Rabbit
 This is an entry for the 32nd Ludum Dare Compo, a competition in which one person develops a game and all of its content from scratch in 48 hours.
 
 Requires [LÖVE](https://love2d.org/).

@@ -9,6 +9,7 @@ function enemy.new(enemyinfo, spawninfo, stage)
   local anim
   if enemyinfo.aset then
     anim = animator.new(enemyinfo.aset)
+    anim:play('default')
   end
   local instance = {
     image = enemyinfo.image,

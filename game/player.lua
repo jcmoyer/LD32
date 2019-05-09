@@ -33,6 +33,7 @@ animutil.genfquads(aset, sprite)
 function player.new()
   local instance = {
     p = vector2.new(),
+    lastp = vector2.new(),
     v = vector2.new(),
     r = 4,
     predictvec = vector2.new(),
@@ -46,6 +47,7 @@ end
 
 function player:update(dt)
   self.anim:update(dt)
+  self.lastp:set(self.p:x(), self.p:y())
   self.p:add(self.v)
 
   self.bulletcd = self.bulletcd - 1
@@ -55,9 +57,8 @@ function player:update(dt)
 end
 
 function player:predict(a)
-  self.predictvec:set(self.p[1], self.p[2])
-  self.predictvec:add(self.v[1] * a, self.v[2] * a)
-  return self.p--self.predictvec
+  vector2.lerp(self.lastp, self.p, a, self.predictvec)
+  return self.predictvec
 end
 
 function player:draw(a)

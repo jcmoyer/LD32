@@ -299,7 +299,7 @@ function stage:draw(a)
 
 
   --self.bg:setscroll(-self.player.p[1], -self.player.p[2] + self.yscroll)
-  self.bg:draw(a, -self.player.p[1], -self.player.p[2])
+  self.bg:draw(a, -self.player.predictvec[1], -self.player.predictvec[2])
 
   for i = 1,#self.playerbullets do
     self.playerbullets[i]:draw(a)

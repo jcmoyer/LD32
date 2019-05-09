@@ -16,6 +16,7 @@ function enemy.new(enemyinfo, spawninfo, stage)
     info = enemyinfo,
     alive = true,
     p = vector2.new(spawninfo.x, spawninfo.y),
+    lastp = vector2.new(spawninfo.x, spawninfo.y),
     v = vector2.new(),
     accelangle = 0,
     accelmag = 0,
@@ -36,6 +37,7 @@ function enemy.new(enemyinfo, spawninfo, stage)
 end
 
 function enemy:update(dt)
+  self.lastp:set(self.p)
   if self.info.update then
     self.info.update(self.sc)
   end
@@ -58,13 +60,7 @@ function enemy:update(dt)
 end
 
 function enemy:predict(a)
-  self.predictvec:set(
-    self.p[1],
-    self.p[2])
-  self.predictvec:add(
-    self.v[1] * a,
-    self.v[2] * a)
-
+  vector2.lerp(self.lastp, self.p, a, self.predictvec)
   return self.predictvec
 end
 

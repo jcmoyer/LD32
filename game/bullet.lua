@@ -102,6 +102,7 @@ function bullet.new(name, x, y, vx, vy)
     alive = true,
     -- pos and velocity
     p = vector2.new(x, y),
+    lastp = vector2.new(x, y),
     v = vector2.new(vx, vy),
     -- angular acceleration
     accelangle = 0,
@@ -116,6 +117,7 @@ function bullet.new(name, x, y, vx, vy)
 end
 
 function bullet:update(dt)
+  self.lastp:set(self.p)
   self.anim:update(dt)
 
   -- angular acceleration
@@ -129,13 +131,7 @@ function bullet:update(dt)
 end
 
 function bullet:predict(a)
-  self.predictvec:set(
-    self.p[1],
-    self.p[2])
-  self.predictvec:add(
-    self.v[1] * a,
-    self.v[2] * a)
-
+  vector2.lerp(self.lastp, self.p, a, self.predictvec)
   return self.predictvec
 end
 

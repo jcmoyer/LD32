@@ -165,7 +165,7 @@ end
 function stage:update(dt)
   self.music:update()
 
-  self.killfade = self.killfade - 5
+  self.killfade = self.killfade - 5/255
   if self.killfade <= 0 then
     self.killfade = 0
   end
@@ -293,9 +293,9 @@ function stage:draw(a)
   love.graphics.push()
   love.graphics.translate(sx, sy)
 
-  love.graphics.setColor(20, 12, 28)
+  love.graphics.setColor(20/255, 12/255, 28/255)
   love.graphics.rectangle('fill', unpack(self.bounds))
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
 
 
   --self.bg:setscroll(-self.player.p[1], -self.player.p[2] + self.yscroll)
@@ -332,15 +332,15 @@ function stage:draw(a)
     local barh = 4
     local barx = centerx - barw / 2
     local bary = self.bounds:y() + 4
-    love.graphics.setColor(222, 238, 214)
+    love.graphics.setColor(222/255, 238/255, 214/255)
     love.graphics.rectangle('fill', barx, bary, barw - ((1 - self.boss.hp / self.boss.maxhp) * barw), barh)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
   end
   --love.graphics.rectangle('line', unpack(self.bounds))
 
-  love.graphics.setColor(255, 255, 255, self.killfade)
+  love.graphics.setColor(1, 1, 1, self.killfade)
   love.graphics.rectangle('fill', unpack(self.bounds))
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
 
   --love.graphics.print('mem = ' .. math.floor(collectgarbage('count')) .. 'kb',0, 0)
   --love.graphics.print('enemies = ' .. #self.enemies, 0, 40)
@@ -413,7 +413,7 @@ end
 
 function stage:bombbullets()
   self.bullets = {}
-  self.killfade = 150
+  self.killfade = 150/255
   sound.play('pop')
 end
 

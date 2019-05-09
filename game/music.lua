@@ -8,8 +8,8 @@ local tracks = {
   --  loop = love.audio.newSource('assets/level01-loop.ogg')
   --},
   boss = {
-    start = love.audio.newSource('assets/boss-intro.ogg'),
-    loop = love.audio.newSource('assets/boss-loop.ogg')
+    start = love.audio.newSource('assets/boss-intro.ogg', 'stream'),
+    loop = love.audio.newSource('assets/boss-loop.ogg', 'stream')
   }
 }
 
@@ -40,7 +40,7 @@ function music:stop()
 end
 
 function music:update()
-  if (self.track.start:isStopped() and self.started and not self.inloop) then
+  if (not self.track.start:isPlaying() and self.started and not self.inloop) then
     self.track.loop:play()
     self.inloop = true
   end

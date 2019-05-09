@@ -32,9 +32,9 @@ end
 function gameoverstate:draw(a)
   local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
 
-  love.graphics.setColor(20, 12, 28)
+  love.graphics.setColor(20/255, 12/255, 28/255)
   love.graphics.rectangle('fill', 0, 0, sw, sh)
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
 
   love.graphics.setFont(font)
 

@@ -99,7 +99,7 @@ function playstate:draw(a)
 
   local sx, sy = self.stage:screenpos(dw, dh)
 
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   self.stage:draw(a)
 
   love.graphics.draw(ui, 0, 0)

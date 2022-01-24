@@ -42,6 +42,7 @@ function player.new()
     focused = false,
     anim = animator.new(aset)
   }
+  instance.anim:play('default')
   return setmetatable(instance, player)
 end
 
